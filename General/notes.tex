@@ -1,0 +1,24 @@
+\documentclass{article}
+\usepackage{graphicx}
+
+\title{Reinforcement learning}
+\author{Vaishnavi Sharma}
+\date{December 2024}
+
+\begin{document}
+
+\maketitle
+
+\section{Multi-armed bandits}
+\subsection{20-12-2024}
+Some important/interesting points:\\
+1. The reward we get after selecting an action $a_{t}$ at time $t$ will not necessarily be the same when we select same action at another time. All we expect to get is some mean reward. \\
+2. There are various estimation methods for reward for each arm that can help us in selecting `best' arm at some time step.\\
+3. One of them is sample mean. We calculate sample mean for each action that has been taken previously.\\
+4. Similarly, there are various action selection methods. One of them: Select an action whose mean reward estimation is highest. Cons: Not much consideration given to exploration/uncertainty.\\
+\textbf{5. The factors which influence our balance with exploration/exploitation: Precise values of estimates, uncertainties, and number of remaining steps.}\\
+
+Two simple methods: $\epsilon$ greedy and greedy method.\\
+6. Incremental method for reward estimate: To save memory.
+
+\end{document}
