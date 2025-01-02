@@ -1,2 +1,2 @@
 # RL
-RL
+RL: Lecture notes and simulations
