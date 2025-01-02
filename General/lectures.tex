@@ -1,0 +1,77 @@
+\documentclass{book}
+\usepackage{graphicx}
+
+\title{Reinforcement learning lecture notes}
+\author{Vaishnavi Sharma, CPS}
+\date{January 2025}
+
+
+\begin{document}
+
+\maketitle
+\chapter{Lecture 1: Introduction}
+\section{02-01-2025}
+\subsection{Essentials}
+References: \\
+Sutton, Intro\\
+Bertsekas, Neuro-Dynamic programming\\
+Bertsekas, Optimal control and dynamic programming\\
+Same, RL and optimal control\\
+SB: Midterm (Feb 15): 20\\
+Quiz(Before mid-term, end Jan): 5\\
+Final: 50 (Project: 20, Final: 30)\\
+Teams code: 17jggiq
+
+\subsection{Introduction}
+Learning theory: Supervised\\
+\textbf{Reinforcement learning, derives properties of both supervised and unsupervised learning}\\
+Unsupervised\\
+
+\subsection{Components}
+Environment: State (something in environment that is important to us)\\
+Agent: Decision maker\\
+RL: Interaction of agent with environment. \\
+Goal of agent: Operate in a way (select a sequence of actions) that maximize long term reward.\\
+\textbf{Question:} What is long term?
+
+\subsection{Class of problems}
+Notation: N: Number of stages of decision making.\\
+Cases:\\
+Finite horizon problem.\\
+1. N is finite.\\
+1 (a). N is a deterministic number.\\
+1(a) N is finite but random: Episodic or shortest path problem.\\
+Long term reward: $E[\sum_{i = 1}^{N} r_{i}| s_{a} = s]$\\
+
+\noindent 2. N is infinite.\\
+2 (a) Discounted rewards of the form
+$$
+lim_{n \rightarrow \infty} E[\sum_{i = 0}^{N} \gamma^{i} r_{i+1}| s_{a} = s]
+$$
+2(b) Long term average reward\\
+
+\subsection{Key ingredients to an RL problem}
+1. State (Environment)\\
+2. Action (Agent)\\
+3. Rewards\\
+
+\noindent Example: Communication networks (routing problem)\\
+Goal: Transmit files as fast as we can.\\
+Main Challenge: Formulation of a proper reward.\\
+Once we formulate the problem, we can work with any algorithm. E.g: Temporal difference learning, Monte carlo methods and so on.\\
+\textbf{To do:} Simulate Routing problem.
+
+\subsection{Exploration vs exploitation tradeoff (interesting problem in any learning theory)}
+Why do we need it? \\
+1. Limited time\\
+2. Long term reward is not revealed by environment (i.e. limited feedback).\\
+
+Another example: Tic-tac-toe game.\\
+State space: $(S_{1}, S_{2}, ....., S_{10})$
+($S_{10}$  is to denote which player started the game so that next action can be determined)\\
+Reward structure: Sparse rewards (0, 1/2, or 1) at the end of the game.\\
+\textbf{To do: Simulate the game}
+
+\textbf{To do:} Let's revise Bandits first.
+
+\end{document}
