@@ -103,7 +103,9 @@ Explore with probability $\epsilon$, Exploit with probability $1-\epsilon$.\\
 Recommendation: Start with a high probability and then reduce it with time (don't drop to zero).\\
 
 \subsubsection{Efficient way to calculate reward estimates (in terms of memory)}
-Take running average instead of storing all rewards at each time step.
+Take running average instead of storing all rewards at each time step.\\
+Fading memory algorithms: Largest weight to recent reward for certain arm.\\
+Dealing with non-stationary dynamics: Keep $\alpha$ constant to keep track of reward evolution.
 
 
 
