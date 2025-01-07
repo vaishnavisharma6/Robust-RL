@@ -74,4 +74,38 @@ Reward structure: Sparse rewards (0, 1/2, or 1) at the end of the game.\\
 
 \textbf{To do:} Let's revise Bandits first.
 
+\chapter{Lecture 2: Multi-armed bandits}
+\section{07-01-2025}
+\subsection{Review}
+Obtained rewards are also random, derived from some probability distribution.\\
+\textbf{Long term reward:} Denoted by value function.\\
+\textbf{Policy:} A decision rule which prescribes the action to be chosen in a given state.\\
+Can be Deterministic(with certainty determines the action to be taken in certain state) or stochastic(random policy, determines with probability the action to be taken in certain state).\\
+\textbf{Ultimate Objective:} Find policy that maximizes value function.\\
+\textbf{Question:} On what factor does it depend whether the policy is deterministic or stochastic?
+
+\subsection{Multi-armed bandits}
+\tetxbf{Review}\\
+Problem setting: K arms, each arm has some reward distribution associated to it. Pull arms in such a way that long term reward is maximized.\\
+
+\noindent Suppose $q*(a) = E[R_{t+1} | A_{t} = a]$\\
+\textbf{Goal:} Find $a* \in argmax_{a} q*(a)$ (Best arm) \\
+
+\textbf{Strategies to find optimal action}\\
+Build an estimate of $Q_{n}^{*}(a)$ of action a at time n.\\
+
+\subsubsection{Greedy Policy}
+Select action $a$ st $a = argmax Q_{n}(a)$.\\
+Problem: Exploration absence.\\
+
+\subsubsection{$\epsilon$-Greedy}
+Explore with probability $\epsilon$, Exploit with probability $1-\epsilon$.\\
+Recommendation: Start with a high probability and then reduce it with time (don't drop to zero).\\
+
+\subsubsection{Efficient way to calculate reward estimates (in terms of memory)}
+Take running average instead of storing all rewards at each time step.
+
+
+
+
 \end{document}
