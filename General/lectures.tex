@@ -107,6 +107,69 @@ Take running average instead of storing all rewards at each time step.\\
 Fading memory algorithms: Largest weight to recent reward for certain arm.\\
 Dealing with non-stationary dynamics: Keep $\alpha$ constant to keep track of reward evolution.
 
+\chapter{Lecture 3: Mulit-armed bandits (continued)}
+\section{09-01-2025, Reward discussion}
+Essence of randomness in rewards.\\
+Mean reward estimation using sample mean.\\
+\textbf{Strong law of large numbers:} To show the convergence of sample estimation to mean reward.
+
+\subsection{Algorithm}
+$$
+Q_{t+1}(a) = Q_{t}(a) + \frac{1}{t+1}(R_{t+1} - Q_{t}(a))
+$$
+with
+$$
+Q_{t}(0) = 0
+$$
+
+We call $\alpha_{t} = \frac{1}{t+1}$ as step size or learning rate.
+
+$\alpha_{t} > 0$ criteria: Arbitrary except that $\sum_{t} \alpha_{t} = \infty$, $\sum_{t} \alpha_{t}^{2} < \infty$\\
+
+Strong law of large numbers applies in this case as well.
+
+\textbf{*Paper: Stochastic approximation algorithms: H Robbins and S Munroe}\\
+
+\noindent   **Root finding problem\\
+\textbf{Applications:} 
+a) To find fixed point of a function.\\
+b) Minimum of a function\\
+
+
+\subsection{Upper Confidence bound algorithm}
+Select action $A_{t}$ such that:\\
+
+$$
+A_{t} = argmax_{a} [Q_{t}(a) + \epsilon * \sqrt{\frac{ln(t)}{N_{t}(a)}}]
+$$
+
+How did this form arise?\\
+
+Suppose $R_{1}, R_{2}, ....$ be iid and subgaussian
+
+Apply Hoeffding's inequality, i.e.\\
+
+$$
+P (Q_{n}(i) \geq \epsilon) \leq e^{-n\epsilon^{2}/2} = \delta
+$$
+If $\delta = \frac{1}{n}$, then a good candidate for estimate of mean reward will be one in UCB algo.
+
+\subsection{Gradient bandit algorithms}
+Instead of working with $Q$ function, we work with preference $H_{t}(a)$ and then use Gibb's or Boltzmann policy to select action based on value of $H_{t}(a)$.
+
+\textbf{Update Rule}\\
+$$
+H_{t+1}(a) = H_{t}(a) + \alpha* \frac{\partial E[R_{t}]}{\partial H_{t}(a)}
+$$
+
+\textbf{Analysis:}
+Derive value of $\frac{\partial \pi(x)}{\partial H_{t}(x)}$ (will come as $\pi_{t}(x) (I_{\{x = a\}} - \pi_{t}(a))$ and then plug it in value of derivative term in  above algorithm.
+
+
+
+
+
+
 
 
 
