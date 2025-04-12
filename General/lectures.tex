@@ -1,0 +1,176 @@
+\documentclass{book}
+\usepackage{graphicx}
+
+\title{Reinforcement learning lecture notes}
+\author{Vaishnavi Sharma, CPS}
+\date{January 2025}
+
+
+\begin{document}
+
+\maketitle
+\chapter{Lecture 1: Introduction}
+\section{02-01-2025}
+\subsection{Essentials}
+References: \\
+Sutton, Intro\\
+Bertsekas, Neuro-Dynamic programming\\
+Bertsekas, Optimal control and dynamic programming\\
+Same, RL and optimal control\\
+SB: Midterm (Feb 15): 20\\
+Quiz(Before mid-term, end Jan): 5\\
+Final: 50 (Project: 20, Final: 30)\\
+Teams code: 17jggiq
+
+\subsection{Introduction}
+Learning theory: Supervised\\
+\textbf{Reinforcement learning, derives properties of both supervised and unsupervised learning}\\
+Unsupervised\\
+
+\subsection{Components}
+Environment: State (something in environment that is important to us)\\
+Agent: Decision maker\\
+RL: Interaction of agent with environment. \\
+Goal of agent: Operate in a way (select a sequence of actions) that maximize long term reward.\\
+\textbf{Question:} What is long term?
+
+\subsection{Class of problems}
+Notation: N: Number of stages of decision making.\\
+Cases:\\
+Finite horizon problem.\\
+1. N is finite.\\
+1 (a). N is a deterministic number.\\
+1(a) N is finite but random: Episodic or shortest path problem.\\
+Long term reward: $E[\sum_{i = 1}^{N} r_{i}| s_{a} = s]$\\
+
+\noindent 2. N is infinite.\\
+2 (a) Discounted rewards of the form
+$$
+lim_{n \rightarrow \infty} E[\sum_{i = 0}^{N} \gamma^{i} r_{i+1}| s_{a} = s]
+$$
+2(b) Long term average reward\\
+
+\subsection{Key ingredients to an RL problem}
+1. State (Environment)\\
+2. Action (Agent)\\
+3. Rewards\\
+
+\noindent Example: Communication networks (routing problem)\\
+Goal: Transmit files as fast as we can.\\
+Main Challenge: Formulation of a proper reward.\\
+Once we formulate the problem, we can work with any algorithm. E.g: Temporal difference learning, Monte carlo methods and so on.\\
+\textbf{To do:} Simulate Routing problem.
+
+\subsection{Exploration vs exploitation tradeoff (interesting problem in any learning theory)}
+Why do we need it? \\
+1. Limited time\\
+2. Long term reward is not revealed by environment (i.e. limited feedback).\\
+
+Another example: Tic-tac-toe game.\\
+State space: $(S_{1}, S_{2}, ....., S_{10})$
+($S_{10}$  is to denote which player started the game so that next action can be determined)\\
+Reward structure: Sparse rewards (0, 1/2, or 1) at the end of the game.\\
+\textbf{To do: Simulate the game}
+
+\textbf{To do:} Let's revise Bandits first.
+
+\chapter{Lecture 2: Multi-armed bandits}
+\section{07-01-2025}
+\subsection{Review}
+Obtained rewards are also random, derived from some probability distribution.\\
+\textbf{Long term reward:} Denoted by value function.\\
+\textbf{Policy:} A decision rule which prescribes the action to be chosen in a given state.\\
+Can be Deterministic(with certainty determines the action to be taken in certain state) or stochastic(random policy, determines with probability the action to be taken in certain state).\\
+\textbf{Ultimate Objective:} Find policy that maximizes value function.\\
+\textbf{Question:} On what factor does it depend whether the policy is deterministic or stochastic?
+
+\subsection{Multi-armed bandits}
+\tetxbf{Review}\\
+Problem setting: K arms, each arm has some reward distribution associated to it. Pull arms in such a way that long term reward is maximized.\\
+
+\noindent Suppose $q*(a) = E[R_{t+1} | A_{t} = a]$\\
+\textbf{Goal:} Find $a* \in argmax_{a} q*(a)$ (Best arm) \\
+
+\textbf{Strategies to find optimal action}\\
+Build an estimate of $Q_{n}^{*}(a)$ of action a at time n.\\
+
+\subsubsection{Greedy Policy}
+Select action $a$ st $a = argmax Q_{n}(a)$.\\
+Problem: Exploration absence.\\
+
+\subsubsection{$\epsilon$-Greedy}
+Explore with probability $\epsilon$, Exploit with probability $1-\epsilon$.\\
+Recommendation: Start with a high probability and then reduce it with time (don't drop to zero).\\
+
+\subsubsection{Efficient way to calculate reward estimates (in terms of memory)}
+Take running average instead of storing all rewards at each time step.\\
+Fading memory algorithms: Largest weight to recent reward for certain arm.\\
+Dealing with non-stationary dynamics: Keep $\alpha$ constant to keep track of reward evolution.
+
+\chapter{Lecture 3: Mulit-armed bandits (continued)}
+\section{09-01-2025, Reward discussion}
+Essence of randomness in rewards.\\
+Mean reward estimation using sample mean.\\
+\textbf{Strong law of large numbers:} To show the convergence of sample estimation to mean reward.
+
+\subsection{Algorithm}
+$$
+Q_{t+1}(a) = Q_{t}(a) + \frac{1}{t+1}(R_{t+1} - Q_{t}(a))
+$$
+with
+$$
+Q_{t}(0) = 0
+$$
+
+We call $\alpha_{t} = \frac{1}{t+1}$ as step size or learning rate.
+
+$\alpha_{t} > 0$ criteria: Arbitrary except that $\sum_{t} \alpha_{t} = \infty$, $\sum_{t} \alpha_{t}^{2} < \infty$\\
+
+Strong law of large numbers applies in this case as well.
+
+\textbf{*Paper: Stochastic approximation algorithms: H Robbins and S Munroe}\\
+
+\noindent   **Root finding problem\\
+\textbf{Applications:} 
+a) To find fixed point of a function.\\
+b) Minimum of a function\\
+
+
+\subsection{Upper Confidence bound algorithm}
+Select action $A_{t}$ such that:\\
+
+$$
+A_{t} = argmax_{a} [Q_{t}(a) + \epsilon * \sqrt{\frac{ln(t)}{N_{t}(a)}}]
+$$
+
+How did this form arise?\\
+
+Suppose $R_{1}, R_{2}, ....$ be iid and subgaussian
+
+Apply Hoeffding's inequality, i.e.\\
+
+$$
+P (Q_{n}(i) \geq \epsilon) \leq e^{-n\epsilon^{2}/2} = \delta
+$$
+If $\delta = \frac{1}{n}$, then a good candidate for estimate of mean reward will be one in UCB algo.
+
+\subsection{Gradient bandit algorithms}
+Instead of working with $Q$ function, we work with preference $H_{t}(a)$ and then use Gibb's or Boltzmann policy to select action based on value of $H_{t}(a)$.
+
+\textbf{Update Rule}\\
+$$
+H_{t+1}(a) = H_{t}(a) + \alpha* \frac{\partial E[R_{t}]}{\partial H_{t}(a)}
+$$
+
+\textbf{Analysis:}
+Derive value of $\frac{\partial \pi(x)}{\partial H_{t}(x)}$ (will come as $\pi_{t}(x) (I_{\{x = a\}} - \pi_{t}(a))$ and then plug it in value of derivative term in  above algorithm.
+
+
+
+
+
+
+
+
+
+\end{document}
