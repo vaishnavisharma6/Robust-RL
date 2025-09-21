@@ -2,4 +2,4 @@
 
 
 
-Current: UBE, URBE
+Current: UBE, URBE, Vanilla DQN.
