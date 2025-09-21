@@ -1,1 +1,0 @@
-# epsilon greedy and greedy algorithms simulation for lots of bandit problems.
